@@ -1,13 +1,28 @@
+// LANGUAGE: +CompanionBlocksAndExtensions
+
 package foo.bar
 
-import org.jetbrains.kotlin.compiler.plugin.template.SomeAnnotation
+import com.serranofp.builder.lambda.build
 
-@SomeAnnotation
-fun box(): String {
-    val result = MyClass().foo()
-    return if (result == "Hello world") {
-        "OK"
-    } else {
-        "Fail: $result"
+data class A(val length: Int, val title: String, val size: Int) {
+    companion {
+        fun builder(length: Int): Builder = Builder(length)
     }
+
+    class Builder(val length: Int) {
+        private var _title: String = ""
+        private var _size: Int = 0
+
+        fun title(title: String): Builder { _title = title ; return this }
+        fun size(size: Int): Builder { _size = size ; return this }
+        fun build(): A = A(length, _title, _size)
+    }
+}
+
+fun box(): String {
+    val s = build<A, *> {
+        length = 3
+        title = "hello"
+    }
+    return if (s.length == 3 && s.title == "hello") "OK" else "FAIL"
 }

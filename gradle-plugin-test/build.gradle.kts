@@ -5,6 +5,6 @@ plugins {
 }
 
 pluginDevKit {
-    includedBuildProjects.add("gradle-plugin")
-    compilerPlugin = ProjectOrGav.LocalProject(project(":compiler-plugin").isolated)
+    includedBuildProjects.addAll("gradle-plugin", "support-lib")
+    compilerPlugin = ProjectOrGav.LocalProject(project(":builder-lambda-compiler-plugin").isolated)
 }

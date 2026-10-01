@@ -6,18 +6,21 @@ plugins {
 }
 
 pluginDevKit {
-    companionLibrary("plugin-annotations")
-    compilerPlugin = ProjectOrGav.Sibling("compiler-plugin")
+    companionLibrary("builder-lambda-support-lib")
+    compilerPlugin = ProjectOrGav.Sibling("builder-lambda-compiler-plugin")
 }
 
 gradlePlugin {
+    website = "https://serranofp.com"
+    vcsUrl = "https://github.com/serras/builder-lambda"
+
     plugins {
-        create("SimplePlugin") {
-            id = group.toString()
-            displayName = "SimplePlugin"
-            description = "SimplePlugin"
-            implementationClass =
-                "org.jetbrains.kotlin.compiler.plugin.template.SimpleSupportPlugin"
+        create("BuilderLambdaPlugin") {
+            id = "com.serranofp.builder.lambda"
+            displayName = "Builder Lambda Kotlin plug-in"
+            description = "Java builders, the way Kotliners like them"
+            implementationClass = "com.serranofp.builder.lambda.BuilderLambdaGradlePlugin"
+            tags = setOf("builder", "kotlin")
         }
     }
 }

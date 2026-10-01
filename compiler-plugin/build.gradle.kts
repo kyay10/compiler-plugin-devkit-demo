@@ -4,11 +4,15 @@ plugins {
 }
 
 pluginDevKit {
-    versionHierarchy {
-        splitDev(2, 5)
-    }
     componentRegistrar =
-        "org.jetbrains.kotlin.compiler.plugin.template.SimplePluginComponentRegistrar"
+        "com.serranofp.builder.lambda.BuilderLambdaComponentRegistrar"
     commandLineProcessor =
-        "org.jetbrains.kotlin.compiler.plugin.template.SimpleCommandLineProcessor"
+        "com.serranofp.builder.lambda.BuilderLambdaCommandLineProcessor"
+}
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcollection-literals")
+        freeCompilerArgs.add("-Xname-based-destructuring=complete")
+    }
 }

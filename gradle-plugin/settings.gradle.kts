@@ -9,4 +9,4 @@ pluginManagement {
 
 plugins { id("devkit-included") }
 
-rootProject.name = "gradle-plugin"
+rootProject.name = "builder-lambda-plugin"

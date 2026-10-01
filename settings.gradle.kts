@@ -11,12 +11,14 @@ plugins { id("devkit") }
 
 pluginDevKit {
     includeBuildWithChecks("gradle-plugin")
-    includeCompanionBuild("plugin-annotations")
+    includeBuildWithChecks("support-lib")
+    companionLibrary("builder-lambda-support-lib")
 }
 
-rootProject.name = "compiler-plugin-template"
+rootProject.name = "compiler-plugin-devkit-demo"
 
-include("compiler-plugin")
+include("builder-lambda-compiler-plugin")
+project(":builder-lambda-compiler-plugin").projectDir = file("compiler-plugin")
 
 include("gradle-plugin-test")
 
