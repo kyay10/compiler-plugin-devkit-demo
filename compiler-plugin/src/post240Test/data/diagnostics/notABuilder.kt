@@ -1,12 +1,12 @@
-// RUN_PIPELINE_TILL: BACKEND
-// LANGUAGE: +CompanionBlocksAndExtensions
-// FIR_DUMP
+// RUN_PIPELINE_TILL: FRONTEND
 
 package foo.bar
 
 import com.serranofp.builder.lambda.build
 
-class A {
+class A { }
+
+class B {
     companion {
         fun builder(length: Int): Builder = TODO()
     }
@@ -14,12 +14,12 @@ class A {
     class Builder(val length: Int) {
         fun title(title: String): Builder = this
         fun size(size: Int): Builder = this
-        fun build(): A = TODO()
     }
 }
 
 fun test() {
-    val s = build<A, *> {
+    val x = build<<!NOT_A_BUILDER_BUILDER!>A<!>, *> { }
+    val s = build<<!NOT_A_BUILDER_NO_BUILD!>B<!>, *> {
         length = 3
         title = "hello"
     }

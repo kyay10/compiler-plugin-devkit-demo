@@ -1,12 +1,10 @@
 package com.serranofp.builder.lambda.runners
 
-import com.serranofp.builder.lambda.BuilderLambdaComponentRegistrar
 import org.jetbrains.kotlin.compiler.plugin.devkit.runners.DevKitJvmDiagnosticTest
-import org.jetbrains.kotlin.compiler.plugin.devkit.services.configurePlugin
-import org.jetbrains.kotlin.test.directives.FirDiagnosticsDirectives
+import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
+import org.jetbrains.kotlin.test.directives.TestPhaseDirectives.RUN_PIPELINE_TILL
+import org.jetbrains.kotlin.test.services.TestPhase
 
-open class AbstractJvmDiagnosticTest :
-    DevKitJvmDiagnosticTest({
-        configurePlugin(BuilderLambdaComponentRegistrar())
-        defaultDirectives { -FirDiagnosticsDirectives.FIR_DUMP }
-    })
+open class AbstractJvmDiagnosticTest : DevKitJvmDiagnosticTest(TestConfigurationBuilder::config, {
+    defaultDirectives { RUN_PIPELINE_TILL with TestPhase.entries.last() }
+})

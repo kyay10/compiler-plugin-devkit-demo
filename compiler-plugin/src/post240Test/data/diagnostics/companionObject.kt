@@ -1,12 +1,11 @@
 // RUN_PIPELINE_TILL: FRONTEND
-// LANGUAGE: +CompanionBlocksAndExtensions
 
 package foo.bar
 
 import com.serranofp.builder.lambda.build
 
 class A {
-    companion {
+    companion object {
         fun builder(length: Int): Builder = TODO()
     }
 

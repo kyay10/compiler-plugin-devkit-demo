@@ -1,4 +1,4 @@
-// LANGUAGE: +CompanionBlocksAndExtensions +CollectionLiterals
+// LANGUAGE: +CollectionLiterals
 
 package foo.bar
 

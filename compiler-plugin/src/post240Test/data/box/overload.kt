@@ -1,5 +1,3 @@
-// LANGUAGE: +CompanionBlocksAndExtensions
-
 package foo.bar
 
 import com.serranofp.builder.lambda.build

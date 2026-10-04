@@ -1,5 +1,5 @@
 // RUN_PIPELINE_TILL: FRONTEND
-// LANGUAGE: +CompanionBlocksAndExtensions
+// DIAGNOSTICS: -NO_VALUE_FOR_PARAMETER
 // FIR_DUMP
 
 package foo.bar
@@ -24,7 +24,7 @@ class A {
 fun test() {
     val s = build<A, *> {
         length = 3
-        <!FUNCTION_CALL_EXPECTED, NO_VALUE_FOR_PARAMETER, VARIABLE_EXPECTED!>title<!> <!ASSIGNMENT_TYPE_MISMATCH!>=<!> "hello"
+        <!FUNCTION_CALL_EXPECTED, VARIABLE_EXPECTED!>title<!> <!ASSIGNMENT_TYPE_MISMATCH!>=<!> "hello"
         title("hello")
         titles = listOf("hello")
         <!UNRESOLVED_REFERENCE!>clearTitles<!>()
