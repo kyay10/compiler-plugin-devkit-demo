@@ -32,6 +32,7 @@ class MembersGenerator(session: FirSession) : FirDeclarationGenerationExtension(
         val data = owner.generatedCallData ?: return emptyList()
         val callables = callables[data.builderClass] ?: return emptyList()
         val name = callableId.callableName
+        //if (name.asString() == "epoch") error("epoch is such a bad name for a property")
         return callables[name].orEmpty().filterIsInstance<Category.CreatesProperty>().map { category ->
             when (category) {
                 is Category.Constructor -> createMemberProperty(

@@ -8,6 +8,7 @@ pluginDevKit {
     cliVersions("2.3.20", betaAndRc = BetaAndRc.LATEST)
     ideaVersions("261", includeRc = true, includeEap = true)
     useLatestDev()
+    testAgainst("2.5.0-dev-8864")
     pluginPackage("com.serranofp.builder.lambda")
 }
 
