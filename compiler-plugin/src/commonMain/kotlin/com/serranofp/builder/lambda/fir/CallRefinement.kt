@@ -1,9 +1,9 @@
 package com.serranofp.builder.lambda.fir
 
 import com.serranofp.builder.lambda.BuilderLambdaIds
+import com.serranofp.builder.lambda.function0Type
 import org.jetbrains.kotlin.GeneratedDeclarationKey
 import org.jetbrains.kotlin.KtSourceElement
-import org.jetbrains.kotlin.builtins.functions.FunctionTypeKind
 import org.jetbrains.kotlin.contracts.description.EventOccurrencesRange
 import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.fir.*
@@ -23,12 +23,13 @@ import org.jetbrains.kotlin.fir.symbols.*
 import org.jetbrains.kotlin.fir.symbols.impl.*
 import org.jetbrains.kotlin.fir.types.*
 import org.jetbrains.kotlin.fir.types.builder.*
+import org.jetbrains.kotlin.fir.types.impl.FirImplicitAnyTypeRef
 import org.jetbrains.kotlin.fir.visitors.FirTransformer
 import org.jetbrains.kotlin.name.*
 import org.jetbrains.kotlin.types.Variance
 
 @OptIn(FirExtensionApiInternals::class)
-class CallRefinement(session: FirSession) : FirFunctionCallRefinementExtension(session) {
+class CallRefinement(session: FirSession) : FirFunctionCallRefinementExtension(session), SessionHolder {
     data object Key : GeneratedDeclarationKey()
 
     override fun intercept(callInfo: CallInfo, symbol: FirNamedFunctionSymbol): CallReturnType? {
@@ -53,6 +54,7 @@ class CallRefinement(session: FirSession) : FirFunctionCallRefinementExtension(s
             scopeProvider = FirKotlinScopeProvider()
             name = refinedTypeId.shortClassName
             this.symbol = refinedTypeSymbol
+            superTypeRefs += FirImplicitAnyTypeRef(null)
 
             annotations.add(buildAnnotation {
                 annotationTypeRef = buildResolvedTypeRef {
@@ -148,13 +150,7 @@ class CallRefinement(session: FirSession) : FirFunctionCallRefinementExtension(s
                 this.symbol = fSymbol
                 isLambda = true
                 hasExplicitParameterList = false
-                typeRef = buildResolvedTypeRef {
-                    coneType = session.typeContext.createSimpleType(
-                        constructor = session.typeContext.getNonReflectFunctionTypeConstructor(0, FunctionTypeKind.Function),
-                        arguments = listOf(returnType),
-                        nullable = false,
-                    )
-                }
+                typeRef = buildResolvedTypeRef { coneType = function0Type(returnType) }
                 invocationKind = EventOccurrencesRange.EXACTLY_ONCE
                 inlineStatus = InlineStatus.Inline
             }.also { target.bind(it) }

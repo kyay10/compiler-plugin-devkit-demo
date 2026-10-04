@@ -1,5 +1,6 @@
 package com.serranofp.builder.lambda.fir
 
+import com.serranofp.builder.lambda.getOrPutIfMissing
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.caches.*
 import org.jetbrains.kotlin.fir.declarations.FirDeclarationOrigin
